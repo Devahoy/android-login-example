@@ -1,6 +1,6 @@
 ## Devahoy Login with SharedPreferences
 
-ตัวอย่าง Project จากบทความนี้ [ทำระบบ Login บน Android ด้วย SharedPreferences](devahoy.com/2014/06/android-login-activity-with-sharedpreferences/)
+ตัวอย่าง Project จากบทความนี้ [ทำระบบ Login บน Android ด้วย SharedPreferences](http://devahoy.com/2014/06/android-login-activity-with-sharedpreferences/)
 
 ## Usage
 
