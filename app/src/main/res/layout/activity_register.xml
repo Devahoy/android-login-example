@@ -49,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:inputType="textPassword"
                 android:singleLine="true" />
 
         </LinearLayout>
@@ -68,6 +69,7 @@
                 android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:textSize="16sp"
                 android:singleLine="true" />
 
@@ -78,7 +80,7 @@
                 android:id="@+id/button_register"
                 android:background="#ff3eaff9"
                 android:textColor="#ffffff"
-                android:text="Login"
+                android:text="@string/button_register"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 

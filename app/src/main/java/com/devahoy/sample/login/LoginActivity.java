@@ -61,6 +61,7 @@ public class LoginActivity extends ActionBarActivity {
         if (isSuccess) {
             Intent intent = new Intent(mContext, MainActivity.class);
             startActivity(intent);
+            finish();
         } else {
             String message = getString(R.string.login_error_message);
             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();

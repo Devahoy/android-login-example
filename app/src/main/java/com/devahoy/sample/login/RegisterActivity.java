@@ -43,10 +43,16 @@ public class RegisterActivity extends ActionBarActivity {
                     boolean isSuccess = mManager.registerUser(username, password);
 
                     if (isSuccess) {
+                        String message = getString(R.string.register_success);
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                         finish();
+                    } else {
+                        String message = getString(R.string.register_error_message);
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                     }
 
-                    String message = getString(R.string.register_error_message);
+                } else {
+                    String message = getString(R.string.register_password_error);
                     Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                 }
 
