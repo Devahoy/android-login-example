@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.devahoy.sample.login.model.User;
+import com.devahoy.sample.login.utils.UserManager;
+
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -56,15 +59,19 @@ public class LoginActivity extends ActionBarActivity {
         String username = mUsername.getText().toString().trim().toLowerCase();
         String password = mPassword.getText().toString().trim();
 
-        boolean isSuccess = mManager.checkLoginValidate(username, password);
+        User user = new User(username, password);
 
-        if (isSuccess) {
-            Intent intent = new Intent(mContext, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
+        User validateUser = mManager.checkUserLogin(user);
+
+        if (null == validateUser) {
             String message = getString(R.string.login_error_message);
             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(mContext, MainActivity.class);
+            intent.putExtra(User.Column.USERNAME, validateUser.getUsername());
+            intent.putExtra(User.Column.ID, validateUser.getId());
+            startActivity(intent);
+            finish();
         }
     }
 }

@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.devahoy.sample.login.model.User;
+import com.devahoy.sample.login.utils.UserManager;
+
 public class RegisterActivity extends ActionBarActivity {
 
     private EditText mUsername;
@@ -40,15 +43,16 @@ public class RegisterActivity extends ActionBarActivity {
                 String confirmPassword = mConfirmPassword.getText().toString();
 
                 if (password.equals(confirmPassword)) {
-                    boolean isSuccess = mManager.registerUser(username, password);
+                    User user = new User(username, password);
+                    long rowId = mManager.registerUser(user);
 
-                    if (isSuccess) {
+                    if (rowId == -1) {
+                        String message = getString(R.string.register_error_message);
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                    } else {
                         String message = getString(R.string.register_success);
                         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                         finish();
-                    } else {
-                        String message = getString(R.string.register_error_message);
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

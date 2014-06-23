@@ -16,5 +16,12 @@
     <string name="register_success">Register Successful</string>
 
     <string name="welcome_message">Welcome to Devahoy</string>
+    <string name="say_hi">Hi\ </string>
+
+    <string name="change_password">Change Password</string>
+    <string name="welcome_error_message">User not found, try to login again!</string>
+    <string name="new_password">New Password</string>
+    <string name="change_password_message">Password has been changed</string>
+
 
 </resources>
