@@ -11,8 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.devahoy.sample.login.R;
-import com.devahoy.sample.login.model.User;
-import com.devahoy.sample.login.utils.UserManager;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -23,18 +24,11 @@ public class LoginActivity extends ActionBarActivity {
     private TextView mRegister;
     private Context mContext;
 
-    private UserManager mManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-
-        mManager = new UserManager(this);
-
-
-
         mContext = this;
 
         mLogin = (Button) findViewById(R.id.button_login);
@@ -62,19 +56,19 @@ public class LoginActivity extends ActionBarActivity {
         String username = mUsername.getText().toString().trim().toLowerCase();
         String password = mPassword.getText().toString().trim();
 
-        User user = new User(username, password);
-
-        User validateUser = mManager.checkUserLogin(user);
-
-        if (null == validateUser) {
-            String message = getString(R.string.login_error_message);
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(mContext, MainActivity.class);
-            intent.putExtra(User.Column.USERNAME, validateUser.getUsername());
-            intent.putExtra(User.Column.ID, validateUser.getId());
-            startActivity(intent);
-            finish();
-        }
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e == null) {
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

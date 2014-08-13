@@ -14,40 +14,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.devahoy.sample.login.R;
-import com.devahoy.sample.login.model.User;
-import com.devahoy.sample.login.utils.UserManager;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.RequestPasswordResetCallback;
 
 public class MainActivity extends ActionBarActivity {
 
     Button mChangePassword;
     TextView mUsername;
-    private UserManager mManager;
-    User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mManager = new UserManager(this);
-        mUser = new User();
-
         mChangePassword = (Button) findViewById(R.id.change_password);
         mUsername = (TextView) findViewById(R.id.say_hi);
 
-        Bundle args = getIntent().getExtras();
-
-        if (null == args) {
-            Toast.makeText(this, getString(R.string.welcome_error_message),
-                    Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            mUsername.setText(getString(R.string.say_hi) + " " +
-                    args.getString(User.Column.USERNAME));
-
-            mUser.setId(args.getInt(User.Column.ID));
-            mUser.setUsername(args.getString(User.Column.USERNAME));
-        }
+        ParseUser user = ParseUser.getCurrentUser();
+        mUsername.setText(getString(R.string.say_hi) + " " + user.getUsername());
 
         mChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,21 +48,31 @@ public class MainActivity extends ActionBarActivity {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog, null);
 
-        final EditText newPassword = (EditText) view.findViewById(R.id.password);
+        final EditText emailAddress = (EditText) view.findViewById(R.id.email_address);
         builder.setView(view);
 
         builder.setPositiveButton(getString(android.R.string.ok),
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String password = newPassword.getText().toString();
-                if(!TextUtils.isEmpty(password)) {
-                    mUser.setPassword(password);
-                    mManager.changePassword(mUser);
-                    Toast.makeText(getApplicationContext(),
-                            getString(R.string.change_password_message),
-                            Toast.LENGTH_SHORT).show();
-                    goToLogin();
+                String email = emailAddress.getText().toString();
+                if(!TextUtils.isEmpty(email)) {
+
+                    ParseUser.requestPasswordResetInBackground(email,
+                        new RequestPasswordResetCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    Toast.makeText(getApplicationContext(),
+                                            getString(R.string.change_password_message),
+                                            Toast.LENGTH_SHORT).show();
+                                    goToLogin();
+                                } else {
+                                    Toast.makeText(getApplicationContext(),
+                                            e.getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                    });
                 }
             }
         });

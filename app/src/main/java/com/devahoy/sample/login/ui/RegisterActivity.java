@@ -9,8 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.devahoy.sample.login.R;
-import com.devahoy.sample.login.model.User;
-import com.devahoy.sample.login.utils.UserManager;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class RegisterActivity extends ActionBarActivity {
 
@@ -20,14 +21,12 @@ public class RegisterActivity extends ActionBarActivity {
     private Button mRegister;
 
     private Context mContext;
-    private UserManager mManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mManager = new UserManager(this);
         mContext = this;
 
         mUsername = (EditText) findViewById(R.id.username);
@@ -44,17 +43,21 @@ public class RegisterActivity extends ActionBarActivity {
                 String confirmPassword = mConfirmPassword.getText().toString();
 
                 if (password.equals(confirmPassword)) {
-                    User user = new User(username, password);
-                    long rowId = mManager.registerUser(user);
+                    ParseUser user = new ParseUser();
+                    user.setUsername(username);
+                    user.setPassword(password);
 
-                    if (rowId == -1) {
-                        String message = getString(R.string.register_error_message);
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-                    } else {
-                        String message = getString(R.string.register_success);
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+                    user.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                // Register Completed!
+                                finish();
+                            } else {
+                                // Some Errors!
+                            }
+                        }
+                    });
 
                 } else {
                     String message = getString(R.string.register_password_error);
