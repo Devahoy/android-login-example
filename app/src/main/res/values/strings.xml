@@ -22,6 +22,4 @@
     <string name="welcome_error_message">User not found, try to login again!</string>
     <string name="new_password">New Password</string>
     <string name="change_password_message">Password has been changed</string>
-
-
 </resources>

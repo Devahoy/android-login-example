@@ -32,6 +32,8 @@ public class LoginActivity extends ActionBarActivity {
 
         mManager = new UserManager(this);
 
+
+
         mContext = this;
 
         mLogin = (Button) findViewById(R.id.button_login);
