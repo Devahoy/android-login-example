@@ -1,4 +1,4 @@
-package com.devahoy.sample.login;
+package com.devahoy.sample.login.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.devahoy.sample.login.R;
 import com.devahoy.sample.login.model.User;
 import com.devahoy.sample.login.utils.UserManager;
 

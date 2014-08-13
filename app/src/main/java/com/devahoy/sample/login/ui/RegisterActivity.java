@@ -1,4 +1,4 @@
-package com.devahoy.sample.login;
+package com.devahoy.sample.login.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.devahoy.sample.login.R;
 import com.devahoy.sample.login.model.User;
 import com.devahoy.sample.login.utils.UserManager;
 
