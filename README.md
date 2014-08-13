@@ -1,6 +1,5 @@
 ## Android Login Example
 
-
 ### Source Code
 
 - [Part1](https://github.com/Devahoy/android-login-example/tree/part1)
