@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.devahoy.sample.login.R;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -43,7 +44,7 @@ public class RegisterActivity extends ActionBarActivity {
                 String confirmPassword = mConfirmPassword.getText().toString();
 
                 if (password.equals(confirmPassword)) {
-                    ParseUser user = new ParseUser();
+                    final ParseUser user = new ParseUser();
                     user.setUsername(username);
                     user.setPassword(password);
 
@@ -51,6 +52,9 @@ public class RegisterActivity extends ActionBarActivity {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
+                                // Use for link exsit ParseUser to Facebook.
+                                ParseFacebookUtils.link(user, RegisterActivity.this);
+
                                 // Register Completed!
                                 finish();
                             } else {
@@ -66,6 +70,8 @@ public class RegisterActivity extends ActionBarActivity {
 
             }
         });
+
+
     }
 
 }

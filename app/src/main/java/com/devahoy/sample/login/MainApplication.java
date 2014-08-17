@@ -3,6 +3,7 @@ package com.devahoy.sample.login;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 
 public class MainApplication extends Application {
 
@@ -14,5 +15,8 @@ public class MainApplication extends Application {
         super.onCreate();
         // Add your initialization code here
         Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+
+        // Initial Facebook Utils
+        ParseFacebookUtils.initialize(APPLICATION_ID);
     }
 }
