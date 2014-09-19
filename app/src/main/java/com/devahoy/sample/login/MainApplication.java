@@ -9,6 +9,7 @@ public class MainApplication extends Application {
 
     private final String APPLICATION_ID = "YOUR_APPLICATION_ID";
     private final String CLIENT_KEY = "YOUR_CLIENT_KEY";
+    private final String FACEBOOK_APP_ID = "YOUR_FACEBOOK_APP_ID";
 
     @Override
     public void onCreate() {
@@ -17,6 +18,6 @@ public class MainApplication extends Application {
         Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
 
         // Initial Facebook Utils
-        ParseFacebookUtils.initialize(APPLICATION_ID);
+        ParseFacebookUtils.initialize(FACEBOOK_APP_ID);
     }
 }
